@@ -1,13 +1,17 @@
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 from datetime import datetime, timedelta, time
+import os
+import json
 
 
 SCOPE = [
     "https://www.googleapis.com/auth/calendar.readonly"
 ]
 
-CREDS = Credentials.from_service_account_file('creds.json')
+
+CREDS = Credentials.from_service_account_info(
+    json.loads(os.environ.get("CREDS")))
 SCOPE_CREDS = CREDS.with_scopes(SCOPE)
 CALENDAR_SERVICE = build('calendar', 'v3', credentials=SCOPE_CREDS)
 

@@ -38,7 +38,29 @@ Simple API to fetch Google Calendar events for HR tools, reports, or any system 
 | 401    | Invalid API key |
 | 400    | Invalid request |
 
-## Developer
+
+## Deployment
+
+Live API: https://calendar-events-api-d5096b589023.herokuapp.com/docs
+
+Hosted on Heroku with:
+- Python 3.12
+- FastAPI + Uvicorn
+
+## Security
+
+- API key authentication required (Header: `api-key`)
+
+
+## Environment Variables
+
+| Variable | Description |
+|----------|-------------|
+| `API_KEY` | Authentication key for API access |
+| `CREDS` | Google Service Account credentials (JSON) |
+
+
+---
 
 Built by [Iliana Márquez](https://github.com/iliana-marquez)
 

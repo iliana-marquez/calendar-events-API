@@ -1,6 +1,6 @@
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
-from datetime import datetime, timedelta, time
+from datetime import datetime, timedelta, time, date
 import os
 import json
 
@@ -73,11 +73,18 @@ def fetch_events_by_period(
         if "dateTime" not in start_info:
             continue
 
+        event_end = end_info.get("dateTime")
+
+        # Only include if event ends ON or AFTER requested start date
+        event_end_date = date.fromisoformat(event_end[:10])
+        if event_end_date < start.date():
+            continue
+
         events.append({
             "id": event.get("id"),
             "title": event.get("summary", ""),
             "start": start_info.get("dateTime"),
-            "end": end_info.get("dateTime")
+            "end": event_end
         })
 
     return {"events": events}
